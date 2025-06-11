@@ -32,7 +32,7 @@
 //for ADC
 #define ADC_CH_NTC   ADC_CHANNEL_5 
 #define ADC_CH_Pot   ADC_CHANNEL_3 
-#define ADC_Unit      ADC_UNIT_1              
+#define ADC_Unit      ADC_UNIT_1        t      
 #define ADC_Attenuation     ADC_ATTEN_DB_12
 #define NTC_DATA_TYPE true
 #define POT_DATA_TYPE false
@@ -197,7 +197,7 @@ void pot_set(void *pvParameters) {
 //Task To Change The RGB LED Acorddingly 
 void RGB_Change_task() {
     adc_data_t received_item;
-    treshold_t current_tresholds = {0};
+    treshold_t current_tresholds;
     float current_temperature = 0.0f;
     float current_voltage_pot = 0.0f;
     uint8_t bright_percent = 100; // 0-100% derived from pot, 0=dim, 100=bright
@@ -222,11 +222,14 @@ void RGB_Change_task() {
             led_color_value_t new_led_state;
             if (current_tresholds.min_th_blue <= current_temperature && current_temperature < current_tresholds.max_th_blue) {
                 new_led_state = LED_Color_Blue;
-            } else if (current_tresholds.min_th_green <= current_temperature && current_temperature < current_tresholds.max_th_green) {
+            } 
+            if (current_tresholds.min_th_green <= current_temperature && current_temperature < current_tresholds.max_th_green) {
                 new_led_state = LED_Color_Green;
-            } else if (current_tresholds.min_th_red <= current_temperature && current_temperature < current_tresholds.max_th_red) {
+            } 
+            if (current_tresholds.min_th_red <= current_temperature && current_temperature < current_tresholds.max_th_red) {
                 new_led_state = LED_Color_Red;
-            } else {
+            } 
+            else {
                 new_led_state = LED_Color_Base; // No color condition met, turn off
             }
 
